@@ -58,7 +58,7 @@ export const SignUp = () => {
         {/* Logo */}
         <div className="flex flex-col items-center justify-center mb-4">
           <img src={data.logo} alt="Logo" className="h-12 w-12" />
-          <p className="text-[#1E1E1E] text-bold playfair">Qlodin</p>
+          <p className="text-[#1E1E1E] text-[30px] text-bold playfair">Qlodin</p>
         </div>
 
         <h2 className="text-2xl font-semibold text-center mb-4 quicksand-600">Sign Up</h2>
