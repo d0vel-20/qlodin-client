@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { data } from '../assets/data';
+import { nameSchema, usernameSchema } from '../validations/completeSchema';
+import { InputField } from '../components/InputField';
 
 
  export const CompleteProfile = () => {
@@ -11,6 +13,7 @@ import { data } from '../assets/data';
     mobileNumber: '',
   });
 
+  const [errors, setErrors] = useState({});
   const [isChecked, setIsChecked] = useState(false);
 
   // Check if all form fields are filled and the checkbox is checked
@@ -21,13 +24,34 @@ import { data } from '../assets/data';
     formData.dateOfBirth &&
     formData.mobileNumber &&
     isChecked;
+    Object.keys(errors).length === 0;
+
+    // Validate fields and store errors
+  const validateField = (name, value) => {
+    let error = '';
+    try {
+      if (name === 'firstName' || name === 'lastName') {
+        nameSchema.parse(value);
+      } else if (name === 'driptag') {
+        usernameSchema.parse(value);
+      }
+    } catch (e) {
+      error = e.errors[0].message;
+    }
+    return error;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+
+    const newErrors = { ...errors };
+    const error = validateField(name, value);
+
+    if (error) newErrors[name] = error;
+    else delete newErrors[name];
+
+    setFormData({ ...formData, [name]: value });
+    setErrors(newErrors);
   };
 
   const handleCheckboxChange = () => {
@@ -51,32 +75,29 @@ import { data } from '../assets/data';
         {/* Form Fields */}
         <div className="space-y-2 mb-6">
           <div className="flex space-x-4">
-            <input
-              type="text"
+          <InputField
               name="firstName"
+              placeholder="First name"
               value={formData.firstName}
               onChange={handleChange}
-              placeholder="First name"
-              className="w-full px-4 py-2 bg-gray-100 text-[14px] rounded-md focus:ring-2 focus:ring-black placeholder-black"
+              error={errors.firstName}
             />
-            <input
-              type="text"
+            <InputField
               name="lastName"
+              placeholder="Last name"
               value={formData.lastName}
               onChange={handleChange}
-              placeholder="Last name"
-              className="w-full px-4 py-2 bg-gray-100 text-[14px] rounded-md focus:ring-2 focus:ring-black placeholder-black"
+              error={errors.lastName}
             />
           </div>
 
-          <input
-              type="text"
-              name="driptag"
-              value={formData.driptag}
-              onChange={handleChange}
-              placeholder="@driptag"
-              className="w-full px-4 py-2 bg-gray-100 text-[14px] rounded-md focus:ring-2 focus:ring-black placeholder-black"
-            />
+          <InputField
+            name="driptag"
+            placeholder="@driptag"
+            value={formData.driptag}
+            onChange={handleChange}
+            error={errors.driptag}
+          />
 
           <input
             type="date"
