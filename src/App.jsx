@@ -12,7 +12,7 @@ function App() {
         <Route path="/auth/register" element={<SignUp />} />
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/verify-otp" element={<OtpVerify/>} />
-        <Route path="/profile/complete-profile" element={<CompleteProfile/>} />
+        <Route path="/profile/setup" element={<CompleteProfile/>} />
         <Route path="*" element={<Navigate to="/auth/login" />} />
       </Routes>
     </>

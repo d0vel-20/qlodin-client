@@ -70,7 +70,7 @@ import { InputField } from '../components/InputField';
             <img src={data.logo} alt="Logo" className="h-12 w-12" />
             <p className="text-[#1E1E1E] text-[30px] text-bold playfair">Qlodin.</p>
         </div>
-        <h1 className='text-center quicksand-600 mb-4 text-[20px]'>Complete your profile</h1>
+        <h1 className='text-center quicksand-600 mb-4 text-[20px]'>Setup your profile</h1>
 
         {/* Form Fields */}
         <div className="space-y-2 mb-6">
